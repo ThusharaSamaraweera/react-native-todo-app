@@ -1,11 +1,11 @@
 import React from "react";
-import {StyleSheet, View,  Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View,  Text} from 'react-native';
 
 const TodoItem = ({item}) => {
 
   return (
     <View style={styles.item}>
-        <Text style={styles.text}>{item.text}</Text>
+      <Text style={styles.text}>{item.text}</Text>
     </View>
   )
 }

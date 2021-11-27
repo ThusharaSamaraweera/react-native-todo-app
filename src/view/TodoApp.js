@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {View, Text, StyleSheet, FlatList} from "react-native";
+import {View, StyleSheet, FlatList, Alert} from "react-native";
 import AddTodo from "../components/AddTodo";
 import Header from "../components/Header";
 import TodoItem from "../components/TodoItem";
@@ -17,6 +17,13 @@ const TodoApp = () => {
   const [inputText, setInputText] = useState('');
 
   const submitHandler = (text) => {
+    if(text.length<= 3){
+      Alert.alert('OOPS!', 'Todos must be over 3 chars long', [
+        {text: 'Understood', onPres: () => {return}}
+      ])
+      return
+    };
+
     setTodos( (preTodos) => {
       return [
         {text: text, key: todos.length + 1},
