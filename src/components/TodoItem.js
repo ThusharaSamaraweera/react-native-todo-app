@@ -1,10 +1,16 @@
 import React from "react";
 import {StyleSheet, View,  Text} from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 
-const TodoItem = ({item}) => {
+const TodoItem = ({item, pressHandler}) => {
 
   return (
     <View style={styles.item}>
+      <View style={styles.deleteIcon}>
+        <MaterialIcons  name='delete' size={22} color='#333' 
+          onPress={() => pressHandler(item.key)}
+        />
+      </View>
       <Text style={styles.text}>{item.text}</Text>
     </View>
   )
@@ -21,6 +27,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: 'row',
     backgroundColor: '#f4c1ab',
+  },
+  deleteIcon: {
+    marginHorizontal: 5,    
   },
 })
 

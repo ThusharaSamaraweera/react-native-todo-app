@@ -16,6 +16,13 @@ const TodoApp = () => {
 
   const [inputText, setInputText] = useState('');
 
+  const pressHandler = (key) => {
+    setTodos( (preTodos) => {
+      return preTodos.filter(todo => todo.key != key)
+    })
+  }
+
+
   const submitHandler = (text) => {
     if(text.length<= 3){
       Alert.alert('OOPS!', 'Todos must be over 3 chars long', [
@@ -44,7 +51,9 @@ const TodoApp = () => {
           <FlatList
             data={todos}
             renderItem={({item}) => (
-              <TodoItem item={item}/>
+              <TodoItem item={item} 
+                        pressHandler={pressHandler}
+              />
             )}
           />
         </View>
