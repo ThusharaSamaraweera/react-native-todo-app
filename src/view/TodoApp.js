@@ -15,6 +15,8 @@ const TodoApp = () => {
   );
 
   const [inputText, setInputText] = useState('');
+  const [requestToUpdate, setRequestToUpdate] = useState(false);
+  const [keyOfUpdate, setkeyOfUpdate] = useState(null);
 
   const pressHandler = (key) => {
     Alert.alert(
@@ -35,6 +37,12 @@ const TodoApp = () => {
     )
   }
 
+  const handleOnRequestToUpdate = (key) => {
+    setRequestToUpdate(true);
+    setkeyOfUpdate(key);
+    setInputText(todos.find( todo => todo.key === key).text);
+  }
+
 
   const submitHandler = (text) => {
     if(text.length<= 3){
@@ -43,6 +51,19 @@ const TodoApp = () => {
       ])
       return
     };
+
+    if(requestToUpdate){
+      const allTodos = todos.slice();
+      if(!keyOfUpdate){
+      return;
+      }
+      const index = todos.findIndex( (todo) => todo.key === keyOfUpdate);
+      allTodos.splice(index, 1, {key: keyOfUpdate, text: text});
+      setTodos(allTodos);
+      setkeyOfUpdate(null);
+      setRequestToUpdate(null);
+      return;
+    }
 
     setTodos( (preTodos) => {
       return [
@@ -59,6 +80,8 @@ const TodoApp = () => {
         <AddTodo  inputText={inputText}
                   setInputText={setInputText}
                   submitHandler={submitHandler}
+                  onRequestToUpdate={handleOnRequestToUpdate}
+                  requestToUpdate={requestToUpdate}
         />
         <View style={styles.list}>
           <FlatList
@@ -66,6 +89,7 @@ const TodoApp = () => {
             renderItem={({item}) => (
               <TodoItem item={item} 
                         pressHandler={pressHandler}
+                        onRequestToUpdate={handleOnRequestToUpdate}  
               />
             )}
           />

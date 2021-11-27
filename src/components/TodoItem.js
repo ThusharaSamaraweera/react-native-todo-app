@@ -1,8 +1,8 @@
 import React from "react";
 import {StyleSheet, View,  Text} from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, Feather } from '@expo/vector-icons';
 
-const TodoItem = ({item, pressHandler}) => {
+const TodoItem = ({item, pressHandler, onRequestToUpdate}) => {
 
   return (
     <View style={styles.item}>
@@ -12,6 +12,11 @@ const TodoItem = ({item, pressHandler}) => {
         />
       </View>
       <Text style={styles.text}>{item.text}</Text>
+      <View style={styles.editIcon}>
+        <Feather name="edit" size={22} color="black" 
+          onPress={ () => onRequestToUpdate(item.key)}
+        />
+      </View>
     </View>
   )
 }
@@ -28,9 +33,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#f4c1ab',
   },
+  text: {
+    fontSize: 15,
+    marginRight: 80,
+  },
   deleteIcon: {
     marginHorizontal: 5,    
   },
+  editIcon: {
+    marginTop: 16,
+    position: 'absolute',
+    left: 320,
+  }
 })
 
 export default TodoItem;

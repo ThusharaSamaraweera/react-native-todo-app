@@ -1,7 +1,7 @@
 import React from "react";
 import {StyleSheet, View, TextInput, Button} from 'react-native';
 
-const AddTodo = ({submitHandler, inputText, setInputText}) => {
+const AddTodo = ({submitHandler, inputText, setInputText, requestToUpdate}) => {
 
   const changeHandler = (val) => {
     setInputText(val)
@@ -19,7 +19,7 @@ const AddTodo = ({submitHandler, inputText, setInputText}) => {
                                 setInputText(''); 
                         } 
               } 
-              title='Add todo'
+              title={requestToUpdate ? 'Update' : 'Add todo'}
               color='coral'
               styles={styles.btn}
       />
