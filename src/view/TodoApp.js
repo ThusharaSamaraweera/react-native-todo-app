@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {View, Text, StyleSheet, FlatList} from "react-native";
+import AddTodo from "../components/AddTodo";
 import Header from "../components/Header";
 import TodoItem from "../components/TodoItem";
 
@@ -12,17 +13,35 @@ const TodoApp = () => {
       {text: 'buy coffee', key: 4},
     ]
   );
+
+  const [inputText, setInputText] = useState('');
+
+  const submitHandler = (text) => {
+    setTodos( (preTodos) => {
+      return [
+        {text: text, key: todos.length + 1},
+        ...preTodos
+      ]
+    })
+  };
+
   return (
     <View style={styles.container}>
       <Header/>
-      <View style={styles.list}>
-              <FlatList
-                data={todos}
-                renderItem={({item}) => (
-                  <TodoItem item={item}/>
-                )}
-              />
+      <View style={styles.content}>
+        <AddTodo  inputText={inputText}
+                  setInputText={setInputText}
+                  submitHandler={submitHandler}
+        />
+        <View style={styles.list}>
+          <FlatList
+            data={todos}
+            renderItem={({item}) => (
+              <TodoItem item={item}/>
+            )}
+          />
         </View>
+      </View>
     </View>
   )
 }
@@ -32,6 +51,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  content: {
+    flex: 1,
+    paddingTop: 40,
+    height: 'auto',
+    marginHorizontal: 20,
+  },
+  list : {
+    flex: 1,
+    marginTop: 15,
+    marginBottom: 15,
+  }
 });
 
 export default TodoApp;
