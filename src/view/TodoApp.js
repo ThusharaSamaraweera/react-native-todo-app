@@ -17,9 +17,22 @@ const TodoApp = () => {
   const [inputText, setInputText] = useState('');
 
   const pressHandler = (key) => {
-    setTodos( (preTodos) => {
-      return preTodos.filter(todo => todo.key != key)
-    })
+    Alert.alert(
+      "warning",
+      "want to delete this todo?",
+      [
+        {
+          text: "Ok",
+          onPress: () => {  setTodos( (preTodos) => {
+                              return preTodos.filter(todo => todo.key != key)
+                            })}
+        },
+        {
+          text: "Cancel",
+          onPress: () => {return}
+        }
+      ]
+    )
   }
 
 
