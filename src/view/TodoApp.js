@@ -1,11 +1,12 @@
 import React from "react";
 import {View, Text, StyleSheet} from "react-native";
+import Header from "../components/Header";
 
 const TodoApp = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app</Text>
+      <Header/>
     </View>
   )
 }
