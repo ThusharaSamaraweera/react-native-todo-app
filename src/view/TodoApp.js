@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import {View, StyleSheet, FlatList, Alert} from "react-native";
+import {View, StyleSheet, FlatList, Alert, TouchableWithoutFeedback,
+        Keyboard} from "react-native";
 import AddTodo from "../components/AddTodo";
 import Header from "../components/Header";
 import TodoItem from "../components/TodoItem";
@@ -62,6 +63,7 @@ const TodoApp = () => {
       setTodos(allTodos);
       setkeyOfUpdate(null);
       setRequestToUpdate(null);
+      setInputText("");
       return;
     }
 
@@ -71,31 +73,39 @@ const TodoApp = () => {
         ...preTodos
       ]
     })
+    setInputText("");
   };
 
   return (
-    <View style={styles.container}>
-      <Header/>
-      <View style={styles.content}>
-        <AddTodo  inputText={inputText}
-                  setInputText={setInputText}
-                  submitHandler={submitHandler}
-                  onRequestToUpdate={handleOnRequestToUpdate}
-                  requestToUpdate={requestToUpdate}
-        />
-        <View style={styles.list}>
-          <FlatList
-            data={todos}
-            renderItem={({item}) => (
-              <TodoItem item={item} 
-                        pressHandler={pressHandler}
-                        onRequestToUpdate={handleOnRequestToUpdate}  
-              />
-            )}
+    <TouchableWithoutFeedback onPress = { () => {
+      Keyboard.dismiss(); 
+      setRequestToUpdate(false);
+      setkeyOfUpdate(null);
+    }}>
+      <View style={styles.container}>
+        <Header/>
+        <View style={styles.content}>
+          <AddTodo  inputText={inputText}
+                    setInputText={setInputText}
+                    submitHandler={submitHandler}
+                    onRequestToUpdate={handleOnRequestToUpdate}
+                    requestToUpdate={requestToUpdate}
           />
+          <View style={styles.list}>
+            <FlatList
+              data={todos}
+              renderItem={({item}) => (
+                <TodoItem item={item} 
+                          pressHandler={pressHandler}
+                          onRequestToUpdate={handleOnRequestToUpdate}  
+                />
+              )}
+            />
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
+
   )
 }
 

@@ -16,8 +16,7 @@ const AddTodo = ({submitHandler, inputText, setInputText, requestToUpdate}) => {
         value={inputText}
       />
       <Button onPress={ () => { submitHandler(inputText);
-                                setInputText(''); 
-                        } 
+                      } 
               } 
               title={requestToUpdate ? 'Update' : 'Add todo'}
               color='coral'
